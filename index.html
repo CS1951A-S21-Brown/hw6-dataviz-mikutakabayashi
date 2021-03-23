@@ -2,27 +2,125 @@
 <html lang="en">
 <head>
         <meta charset="utf-8">
-        <title>Assignment 6 &laquo; Data Visualization Dashboard&raquo;</title>
+        <title>Assignment 6 &laquo; Worldwide Top Video Games &raquo;</title> 
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="main.css"/>
         <!--Feel free to add more CSS files as needed-->
         <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
-    </head>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+        <script src="https://d3js.org/topojson.v1.min.js"></script>
+        <style type="text/css">
+            /* Custom style rules go here. We've included a few, but feel free to write your own! */
+            button:focus {
+                outline: 0 !important;
+            }
+            svg {
+                display: block;
+                margin: 0 auto;
+                font: 10px sans-serif;
+            }
+            .tooltip {
+                position: absolute;
+                text-align: center;  
+                background: #FFFFFF;
+                font-size: 12px;
+                min-width: 100px;
+                padding: 10px;
+                width:  auto;
+                height: auto;
+            }
+        </style>
+</head>
 <body>
     <div class="header">
-        <h3>Assignment 6 &laquo; Data Visualization Dashboard &raquo;</h3>
+        <h3> &#127918 Worldwide and Regional Top Video Games &#127918 </h3>
     </div>
     <!--  We included a basic HTML structure for the 3 graphs here. Feel free to change this if you'd like  -->
     <div class="row">
         <div class="col-lg-6">
             <div id="graph1"></div>
-            <div id="graph2"></div><br/>
+            <label for="genre">Choose a Genre:</label>
+                <select name="index" id="index">
+                    <!-- <option selected="selected" >Select a Genre</option> -->
+                    <option selected="selected" value=0>Action</option>
+                    <option value=1>Adventure</option>
+                    <option value=2>Fighting</option>
+                    <option value=3>Platform</option>
+                    <option value=4>Puzzle</option>
+                    <option value=5>Racing</option>
+                    <option value=6>Role-Playing</option>
+                    <option value=7>Shooter</option>
+                    <option value=8>Simulation</option>
+                    <option value=9>Sports</option>
+                    <option value=10>Strategy</option>
+                    <option value=11>Misc</option>
+                </select>
+                <button onclick="update()" > Submit </button> 
+            <p style="font-size: 10px;">*Press submit to start. If hover-overs get stuck, press submit again.</p>
+            <div id="graph3"></div><br/>
         </div>
         <div class="col-lg-6">
-            <div id="graph3"></div>
+                <!-- Add 2 buttons -->
+                <!-- <button onclick="update(data1)">Data 1</button>
+                <button onclick="update(data2)">Data 2</button> -->
+            <div id="graph2"></div>
         </div>
     </div>
     <!--Feel free to add more JavaScript files as needed-->
     <script type="text/javascript" src="main.js"></script>
+    <p>1. For the first question I simply took the first 10 records in the dataset, since the dataset was already sorted by Global Sales,
+        which is an indicator of how well the games are liked. As seen, Wii Sports was the best-selling game overall, with 82.74 million 
+        sales globally. For the second question, there was more open-endedness about how to calculate popularity. I first took the top 100 
+        best-selling games of every region (so game titles in the top 100 differ based on region), and then calculated the percent of sales
+        that each genre had in this top 100. I felt that this was the best way to calculate popularity because if calculating on the entire
+        dataset, there may be more of certain genres than others. But including only the top 100, there may not be some genres included, but 
+        that just shows that the genre is not popular in that region. Then, on the map, by scrolling over the countries within that region, 
+        we can see the ranking of the top 3 genres and the percentage for each. On the third question, similar to the second, there was an
+        open-endedness of calculating best publisher. First, I took apart the dataset and got the top 50 games of each genre (based on global
+        sales) and then on a pie chart, depicted how many of the top 50 games were from each publisher. 
+    </p>
+    <p>2. D3 was very helpful for question 3, where I could create multiple different graphs under one format. This helps because if I were
+        to make one single chart showing all the data as I did in the 12 graphs I did for part 3, it would become very confusing and 
+        cluttered. Another way that D3 was useful was to be able to make the map that I did for problem 2, with the mouseover and the 
+        dynamics that I used for all of the problems that were asked. If this was not an option, I would have used a static bar or pie 
+        chart like I did before, but I feel that the map makes it easier to interpret the 
+        region (although I wish I could have done no country lines). One other way that D3 was useful was to deal with larger amounts of 
+        data and being able to update what is being used in the charts without changing the code. When adjusting for the different ways to 
+        calculate popularity, I first just used a format for the second question like I did for the third. However, I wanted to calculate it
+        differently, so all I had to do was change what data I pulled from the dataset into the csv, which required no change in the js file 
+        or the html file. If the data is to change in the future, this would not be a problem because the file can be accomodating to other
+        data.
+    </p>
+    <p>3. D3 is sometimes not the best way to create a visualization from scratch when the graph or chart is very simple and can be created
+        using a different visualization tool, such as Python's matplotlib or Excel. Because we need to format and create every single part of the 
+        graph (becauase there aren't any premade templates in d3), it turns into a more time-consuming task. Another reason why D3 may not
+        always be the choice of visualization tool is when there are huge amounts of data points to plot. Of course, any tool would struggle
+        graphing or plotting all of the points, but even in my graphs or the scatter plot graph in the example, the data points come out 
+        slowly when there are many, many points. Therefore, in those kinds of situations, it may be better to use a different tool to plot 
+        a graph. Finally, D3 is definitely harder to understand and learn how to manipulate. For each of the graphs, I had to initially 
+        take an example and adapt it to my needs based on the data I was using and what functions I wanted the graph to have. However, I 
+        definitely would not have been able to do so from scratch. Therefore, without the proper experience and practice, I think it would 
+        be better to use an alternative tool in creating graphs that can be done elsewhere. 
+    </p>
+    <p>4. This dashboard would be accessible to most people; even people with color blindness would be fine using the graph, since the colors
+        do not have much meaning other than separating certain pieces of the graph to differentiate. In addition, as the article "A 
+        Comprehensive Guide to Accessible Data Visualization", most parts of the graphs and charts are separated by white space, allowing 
+        for a clear separation between pieces. I also added a dropdown menu for the selection so that it is easier to click and adjust what 
+        genre we want to look at. However, this dashboard would not be very accessible to the blind because there are hover-overs that would
+        not be able to see what part of the map the person is on, which is one of the parts that the article mentioned previously advises 
+        not to do (this would be hard to avoid on the map though). In order to fix this, it may be better to just add text onto the svg or
+        add a description with the data reported underneath, so that the screen reader could easily read off the data without the person 
+        going over the map. 
+    </p>
+    <p>5. As mentioned above, the map could be implemented in a better way to make it less finicky and adding the description underneath, or
+        made into bar graphs with the numbers to the side, as done in question 1's graph. However for the extra credit portion and the ease 
+        of communicating the region of the world through map, I chose to do what I did. In addition, instead of only having the mouseovers
+        on the pie chart, I could have written out the names and rankings of the publishers (on top of the number of games). But this would 
+        cause the graph to become heavily crowded for one, and also require me
+        to manually change up the dataset more, and the way I implemented this portion would be harder to integrate the rankings, as I did
+        key-value pairs on the graph. Also, based on the space, if I had added more, visually, the chart would look more clustered and 
+        unorganized, which would be another downfall for other groups of people.
+    </p>
 </body>
 </html>
