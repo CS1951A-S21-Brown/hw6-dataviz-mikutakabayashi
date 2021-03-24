@@ -134,11 +134,11 @@ Promise.all([d3.json(url), d3.csv(data_file)]).then(function(data){
           .style("opacity", 1)
           .style("stroke", "black")
         
-        let html = `Region: ${getRegion(d.properties.name, data[1]).Region}<br/>
+        let html = `Region: <b>${getRegion(d.properties.name, data[1]).Region}</b><br/>
             Top 3 Genres:<br/>
-            1: ${getRegion(d.properties.name, data[1]).First[0]}: ${getRegion(d.properties.name, data[1]).First[1]}% <br/>
-            2: ${getRegion(d.properties.name, data[1]).Second[0]}: ${getRegion(d.properties.name, data[1]).Second[1]}%<br/>
-            3: ${getRegion(d.properties.name, data[1]).Third[0]}: ${getRegion(d.properties.name, data[1]).Third[1]}%`;
+            1: <b>${getRegion(d.properties.name, data[1]).First[0]}</b>: ${getRegion(d.properties.name, data[1]).First[1]}% <br/>
+            2: <b>${getRegion(d.properties.name, data[1]).Second[0]}</b>: ${getRegion(d.properties.name, data[1]).Second[1]}%<br/>
+            3: <b>${getRegion(d.properties.name, data[1]).Third[0]}</b>: ${getRegion(d.properties.name, data[1]).Third[1]}%`;
 
         tooltip.html(html)
             .style("left", `${(d3.event.pageX)-50}px`)
@@ -291,7 +291,7 @@ function update() {
                      .duration('50')
                      .attr('opacity', '.5')
 
-                let html = `Company: ${color_span}${d.data.key}<br/></span>
+                let html = `Company: <b>${color_span}${d.data.key}</b><br/></span>
                     Number of Games in Top 50: ${color_span}${d.data.value}</span>`;
             
                 tooltip.html(html)
